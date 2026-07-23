@@ -609,8 +609,8 @@
     50%      { box-shadow: 0 8px 35px rgba(37,211,102,0.9); }
   }
 
-  /* ---------- Controle de música ---------- */
-  #musicBtn {
+  /* ---------- Botão de mutar o vídeo ---------- */
+  #muteBtn {
     position: fixed;
     top: calc(20px + env(safe-area-inset-top));
     right: calc(16px + env(safe-area-inset-right));
@@ -620,11 +620,11 @@
     border-radius: 50%;
     font-size: 22px;
     cursor: pointer;
-    z-index: 50;
+    z-index: 62;
     display: none;
     box-shadow: 0 4px 12px rgba(107,74,46,0.3);
   }
-  #musicBtn.show { display: block; }
+  #muteBtn.show { display: block; }
 
   /* ---------- Foto real do Noah ---------- */
   .photo-frame {
@@ -1140,10 +1140,9 @@
   </div>
 </div>
 
-<button id="musicBtn" title="Música">🔊</button>
-
 <!-- Vídeo do convite -->
 <video id="inviteVideo" src="video.mp4" playsinline webkit-playsinline preload="auto"></video>
+<button id="muteBtn" title="Som">🔊</button>
 <button id="skipBtn">Pular vídeo ➜</button>
 
 <!-- Cena tipo vídeo -->
@@ -1211,11 +1210,6 @@
   </div>
 </div>
 
-<!-- Música de fundo -->
-<audio id="bgMusic" loop preload="none">
-  <source src="musica.mp3" type="audio/mpeg">
-</audio>
-
 <script>
   // Bichinhos da fazenda caindo
   const bg = document.getElementById('farmBg');
@@ -1252,11 +1246,10 @@
   // Start — portas do celeiro
   const startScreen = document.getElementById('startScreen');
   const playBtn = document.getElementById('playBtn');
-  const music = document.getElementById('bgMusic');
-  const musicBtn = document.getElementById('musicBtn');
 
   const video = document.getElementById('inviteVideo');
   const skipBtn = document.getElementById('skipBtn');
+  const muteBtn = document.getElementById('muteBtn');
   let videoDone = false;
 
   function endVideo() {
@@ -1265,11 +1258,8 @@
     video.pause();
     video.classList.remove('show');
     skipBtn.classList.remove('show');
+    muteBtn.classList.remove('show');
     setTimeout(() => video.remove(), 900);
-    // música de fundo entra depois do vídeo
-    music.volume = 0.4;
-    music.play().catch(()=>{});
-    musicBtn.classList.add('show');
     // abre a modal do convite (último slide) com confete
     current = slides.length - 2;
     nextSlide();
@@ -1280,12 +1270,6 @@
     // 1. Vídeo DENTRO do gesto (síncrono) para o iOS liberar o som
     let videoOk = true;
     try { await video.play(); } catch(e) { videoOk = false; }
-    if (!videoOk) {
-      // fallback: sem vídeo, volta para música + slides
-      music.volume = 0.4;
-      music.play().catch(()=>{});
-      musicBtn.classList.add('show');
-    }
 
     // 2. Pedir permissão de giroscópio (popup do iOS aparece)
     try {
@@ -1306,6 +1290,7 @@
       if (videoOk) {
         video.classList.add('show');
         skipBtn.classList.add('show');
+        muteBtn.classList.add('show');
       } else {
         nextSlide();
         startCritterHints();
@@ -1316,6 +1301,10 @@
   video.addEventListener('ended', endVideo);
   video.addEventListener('error', () => { if (!videoDone && video.classList.contains('show')) endVideo(); });
   skipBtn.addEventListener('click', endVideo);
+  muteBtn.addEventListener('click', () => {
+    video.muted = !video.muted;
+    muteBtn.textContent = video.muted ? '🔇' : '🔊';
+  });
 
   // ---------- Parallax: giroscópio (celular) ----------
   function applyParallax(tx, ty) {
@@ -1339,15 +1328,6 @@
     });
   }
 
-  document.getElementById('confirmBtn').addEventListener('click', () => {
-    music.pause();
-    musicBtn.textContent = '🔇';
-  });
-
-  musicBtn.addEventListener('click', () => {
-    if (music.paused) { music.play(); musicBtn.textContent = '🔊'; }
-    else { music.pause(); musicBtn.textContent = '🔇'; }
-  });
 
   // ---------- Saudação personalizada via ?nome= ----------
   const params = new URLSearchParams(location.search);
@@ -1503,7 +1483,6 @@ END:VCALENDAR`;
     startScreen.remove();
     video.remove();
     videoDone = true;
-    musicBtn.classList.add('show');
     current = jump - 2;
     nextSlide();
     startCritterHints();
