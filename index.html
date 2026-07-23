@@ -1,0 +1,1419 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover">
+<meta name="theme-color" content="#6b8fb5">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Noah 🐮">
+<link rel="apple-touch-icon" href="img.jpeg">
+<link rel="icon" href="img.jpeg">
+<link rel="manifest" href="manifest.json">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Lora:ital,wght@0,400;0,600;1,400;1,600&family=Dancing+Script:wght@700&family=Baloo+2:wght@600;700;800&display=swap" rel="stylesheet">
+<title>Fazendinha do Noah 🐮 — Você está convidado!</title>
+<meta name="description" content="🐮 Tem convite especial te esperando! O nosso fazendeirinho Noah está completando 1 aninho e queremos você nessa festa. Clique e venha ver! 💙">
+<meta property="og:title" content="🐮 Fazendinha do Noah — Você está convidado!">
+<meta property="og:description" content="O nosso fazendeirinho está fazendo aniversário! Clique para abrir o convite especial 💙🐮">
+<meta property="og:image" content="fotos/foto_real.jpeg">
+<meta property="og:type" content="website">
+<script src="https://cdn.logr-in.com/LogRocket.min.js" crossorigin="anonymous"></script>
+<script>window.LogRocket && window.LogRocket.init('u9chvf/noah');</script>
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; -webkit-tap-highlight-color: transparent; }
+  html, body {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+    overscroll-behavior: none;
+    -webkit-user-select: none;
+    user-select: none;
+    -webkit-touch-callout: none;
+    background-color: #aecbe8;
+  }
+  body {
+    font-family: 'Lora', Georgia, serif;
+    color: #3d5a7a;
+    -webkit-text-size-adjust: 100%;
+    position: fixed;
+    inset: 0;
+  }
+  /* Céu azul infinito — camada fixa cobrindo toda a tela, inclusive safe areas */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: -50px;
+    background: linear-gradient(180deg, #8fb3d9 0%, #b9d3ec 30%, #e3eef8 60%, #f7f0e2 100%);
+    z-index: -1;
+  }
+  img { -webkit-user-drag: none; }
+
+  /* ================= CENÁRIO (fundo) ================= */
+  .scenery {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 0;
+    overflow: hidden;
+  }
+  .sun {
+    position: absolute;
+    top: calc(30px + env(safe-area-inset-top));
+    left: 50%;
+    width: 130px; height: 130px;
+    margin-left: -65px;
+    border-radius: 50%;
+    background: radial-gradient(circle, rgba(255,244,214,0.95) 0%, rgba(255,238,190,0.5) 45%, rgba(255,238,190,0) 70%);
+    animation: sunGlow 5s ease-in-out infinite;
+  }
+  @keyframes sunGlow {
+    0%, 100% { transform: scale(1); opacity: .8; }
+    50%      { transform: scale(1.15); opacity: 1; }
+  }
+  .cloud {
+    position: absolute;
+    width: 110px; height: 34px;
+    background: rgba(255,255,255,0.85);
+    border-radius: 40px;
+    animation: drift linear infinite;
+  }
+  .cloud::before, .cloud::after {
+    content: '';
+    position: absolute;
+    background: rgba(255,255,255,0.85);
+    border-radius: 50%;
+  }
+  .cloud::before { width: 46px; height: 46px; top: -22px; left: 18px; }
+  .cloud::after  { width: 34px; height: 34px; top: -14px; right: 20px; }
+  .cloud.k1 { top: 9%;  animation-duration: 75s; }
+  .cloud.k2 { top: 19%; animation-duration: 105s; animation-delay: -40s; scale: 0.7; opacity: .8; }
+  .cloud.k3 { top: 30%; animation-duration: 130s; animation-delay: -80s; scale: 0.5; opacity: .6; }
+  @keyframes drift {
+    from { transform: translateX(-30vw); }
+    to   { transform: translateX(135vw); }
+  }
+  /* Colinas de feno (bege, como o cenário da foto) */
+  .hill {
+    position: absolute;
+    bottom: -14vh;
+    height: 26vh;
+    border-radius: 50% 50% 0 0;
+  }
+  .hill.h1 { left: -20%; width: 75%;  background: linear-gradient(#efe3c6, #e3d1a8); }
+  .hill.h2 { right: -20%; width: 80%; background: linear-gradient(#f4ebd6, #e9dbba); bottom: -16vh; }
+  /* Cerquinha de madeira */
+  .fence {
+    position: absolute;
+    left: 0; right: 0; bottom: 0;
+    height: calc(56px + env(safe-area-inset-bottom));
+    background: repeating-linear-gradient(90deg,
+      transparent 0 16px,
+      #cda56f 16px 28px,
+      #b98b5e 28px 30px,
+      transparent 30px 52px);
+    opacity: .9;
+  }
+  .fence::before, .fence::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0;
+    height: 9px;
+    background: linear-gradient(#cda56f, #a8794f);
+    border-radius: 3px;
+  }
+  .fence::before { top: 12px; }
+  .fence::after  { top: 32px; }
+
+  /* Grama em primeiro plano (como a referência) */
+  .grass {
+    position: fixed;
+    left: 0; right: 0; bottom: 0;
+    height: calc(28px + env(safe-area-inset-bottom));
+    z-index: 1;
+    background: linear-gradient(#93b56f, #74994e);
+  }
+  .grass::before {
+    content: '';
+    position: absolute;
+    top: -12px; left: 0; right: 0; height: 12px;
+    background:
+      linear-gradient(45deg, transparent 50%, #93b56f 52%) 0 0 / 12px 12px repeat-x,
+      linear-gradient(-45deg, transparent 50%, #93b56f 52%) 6px 0 / 12px 12px repeat-x;
+  }
+  .grass::after {
+    content: '';
+    position: absolute;
+    top: -4px; left: 0; right: 0; height: 10px;
+    background:
+      linear-gradient(45deg, transparent 50%, #a8c686 52%) 0 0 / 9px 9px repeat-x,
+      linear-gradient(-45deg, transparent 50%, #a8c686 52%) 4.5px 0 / 9px 9px repeat-x;
+    opacity: .8;
+  }
+
+  /* Árvores fofas */
+  .tree {
+    position: absolute;
+    width: 66px; height: 66px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #b3cf94, #8fb06c);
+    box-shadow: inset -6px -8px 14px rgba(0,0,0,0.12);
+  }
+  .tree::after {
+    content: '';
+    position: absolute;
+    bottom: -14px; left: 50%;
+    width: 10px; height: 20px;
+    margin-left: -5px;
+    background: #a8794f;
+    border-radius: 3px;
+  }
+  .tree.t1 { right: 148px; bottom: calc(92px + env(safe-area-inset-bottom)); scale: 0.85; }
+  .tree.t2 { left: 100px;  bottom: calc(102px + env(safe-area-inset-bottom)); scale: 0.6; opacity: .9; }
+
+  /* Celeiro (como a referência) */
+  .barn {
+    position: absolute;
+    right: 8px;
+    bottom: calc(56px + env(safe-area-inset-bottom));
+    width: 158px; height: 128px;
+    filter: drop-shadow(0 8px 14px rgba(74,109,150,0.25));
+  }
+  .barn .roof {
+    position: absolute;
+    top: 0; left: 0; right: 0;
+    height: 58px;
+    background: linear-gradient(#c08552, #a86b3e);
+    clip-path: polygon(50% 0%, 76% 10%, 100% 44%, 100% 100%, 0 100%, 0 44%, 24% 10%);
+    border-radius: 4px;
+  }
+  .barn .body {
+    position: absolute;
+    top: 52px; left: 11px; right: 11px; bottom: 0;
+    background:
+      repeating-linear-gradient(90deg, rgba(107,74,46,0.05) 0 3px, transparent 3px 22px),
+      linear-gradient(#f0dcae, #e3c98f);
+    border-radius: 0 0 8px 8px;
+  }
+  .barn .loft {
+    position: absolute;
+    top: 22px; left: 50%;
+    width: 38px; height: 30px;
+    margin-left: -19px;
+    background:
+      linear-gradient(90deg, transparent calc(50% - 2px), #b98b5e calc(50% - 2px) calc(50% + 2px), transparent calc(50% + 2px)),
+      linear-gradient(0deg, transparent calc(50% - 2px), #b98b5e calc(50% - 2px) calc(50% + 2px), transparent calc(50% + 2px)),
+      #fdf9f0;
+    border: 4px solid #fdf9f0;
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0,0,0,0.18);
+  }
+  .barn .bdoors {
+    position: absolute;
+    bottom: 0; left: 50%;
+    width: 62px; height: 52px;
+    margin-left: -31px;
+    background:
+      linear-gradient(to bottom right, transparent calc(50% - 3px), rgba(253,249,240,0.85) calc(50% - 3px) calc(50% + 3px), transparent calc(50% + 3px)),
+      linear-gradient(to top right, transparent calc(50% - 3px), rgba(253,249,240,0.85) calc(50% - 3px) calc(50% + 3px), transparent calc(50% + 3px)),
+      linear-gradient(90deg, #d9b071 0 48%, #b98b5e 48% 52%, #d9b071 52%),
+      #d9b071;
+    border: 3px solid #fdf9f0;
+    border-bottom: none;
+    border-radius: 8px 8px 0 0;
+  }
+  .rooster {
+    position: absolute;
+    top: -22px; left: 50%;
+    transform: translateX(-50%) scaleX(-1);
+    font-size: 26px;
+    pointer-events: auto;
+    cursor: pointer;
+    filter: drop-shadow(0 3px 4px rgba(0,0,0,0.2));
+    animation: roosterBob 3s ease-in-out infinite;
+  }
+  @keyframes roosterBob {
+    0%, 100% { transform: translateX(-50%) scaleX(-1) rotate(0deg); }
+    50%      { transform: translateX(-50%) scaleX(-1) rotate(-6deg) translateY(-3px); }
+  }
+
+  /* Passarinhos voando */
+  .bird {
+    position: absolute;
+    width: 18px; height: 8px;
+    animation: fly linear infinite;
+    opacity: .7;
+  }
+  .bird::before, .bird::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    width: 9px; height: 8px;
+    border: 2.5px solid #4f4b42;
+    border-bottom: none;
+    border-radius: 9px 9px 0 0;
+    box-sizing: border-box;
+  }
+  .bird::before { left: 0; }
+  .bird::after  { right: 0; }
+  .bird.f1 { top: 11%; animation-duration: 36s; }
+  .bird.f2 { top: 7%;  animation-duration: 46s; animation-delay: -14s; scale: .8; }
+  .bird.f3 { top: 16%; animation-duration: 55s; animation-delay: -32s; scale: .6; }
+  @keyframes fly {
+    0%   { transform: translateX(-8vw)  translateY(0); }
+    25%  { transform: translateX(22vw)  translateY(-14px); }
+    50%  { transform: translateX(52vw)  translateY(6px); }
+    75%  { transform: translateX(82vw)  translateY(-12px); }
+    100% { transform: translateX(112vw) translateY(0); }
+  }
+
+  /* Bandeirinhas xadrez (gingham azul, como o painel da foto) */
+  .bunting {
+    position: fixed;
+    top: calc(-2px + env(safe-area-inset-top));
+    left: -2%; right: -2%;
+    display: flex;
+    justify-content: center;
+    gap: 7px;
+    z-index: 4;
+    border-top: 5px solid #b98b5e;
+    padding-top: 2px;
+    pointer-events: none;
+    transform-origin: top center;
+    animation: buntingSway 7s ease-in-out infinite;
+  }
+  @keyframes buntingSway {
+    0%, 100% { transform: rotate(-0.6deg); }
+    50%      { transform: rotate(0.6deg); }
+  }
+  .bunting i {
+    width: 32px; height: 42px;
+    clip-path: polygon(0 0, 100% 0, 50% 100%);
+    filter: drop-shadow(0 2px 2px rgba(74,109,150,0.25));
+  }
+  .bunting i:nth-child(3n+1) {
+    background:
+      repeating-linear-gradient(0deg, rgba(127,168,209,.55) 0 5px, transparent 5px 10px),
+      repeating-linear-gradient(90deg, rgba(127,168,209,.55) 0 5px, transparent 5px 10px),
+      #eef5fb;
+  }
+  .bunting i:nth-child(3n+2) { background: #d9c7a3; }
+  .bunting i:nth-child(3n)   { background: #7fa8d1; }
+
+  /* ================= TELA INICIAL: PORTAS DO CELEIRO ================= */
+  #startScreen {
+    position: fixed; inset: 0;
+    z-index: 100;
+    transition: opacity .6s ease;
+  }
+  #startScreen.hidden { opacity: 0; pointer-events: none; }
+  .door {
+    position: absolute;
+    top: 0; bottom: 0;
+    width: 50.6%;
+    background:
+      linear-gradient(to bottom right, transparent calc(50% - 10px), #f7f3ec calc(50% - 10px) calc(50% + 10px), transparent calc(50% + 10px)),
+      linear-gradient(to top right, transparent calc(50% - 10px), #f7f3ec calc(50% - 10px) calc(50% + 10px), transparent calc(50% + 10px)),
+      repeating-linear-gradient(90deg, #e6cfa5 0 44px, #ddc498 44px 46px, #d9be90 46px 90px, #cfb384 90px 92px),
+      #e2c99e;
+    border: 10px solid #f7f3ec;
+    box-shadow: inset 0 0 60px rgba(107,74,46,0.28);
+    transition: transform 1.05s cubic-bezier(.65,0,.35,1) .25s;
+  }
+  .door.left  { left: 0; }
+  .door.right { right: 0; }
+  .door::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 20px; height: 20px;
+    margin-top: -10px;
+    border-radius: 50%;
+    background: radial-gradient(circle at 35% 30%, #a8794f, #6b4a2e);
+    box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+  }
+  .door.left::after  { right: 12px; }
+  .door.right::after { left: 12px; }
+  #startScreen.open .door.left  { transform: translateX(-104%); }
+  #startScreen.open .door.right { transform: translateX(104%); }
+
+  .start-content {
+    position: absolute; inset: 0;
+    display: flex; flex-direction: column;
+    align-items: center; justify-content: center;
+    gap: 16px;
+    padding: 20px;
+    z-index: 2;
+    transition: opacity .45s ease;
+    overflow: hidden;
+  }
+  #startScreen.open .start-content { opacity: 0; pointer-events: none; }
+
+  /* Placa de madeira pendurada em cordas (como a referência) */
+  .hang-sign {
+    position: relative;
+    animation: signSwing 5s ease-in-out infinite;
+    transform-origin: top center;
+  }
+  @keyframes signSwing {
+    0%, 100% { transform: rotate(-1.6deg); }
+    50%      { transform: rotate(1.6deg); }
+  }
+  .hang-sign .rope {
+    position: absolute;
+    top: calc(-100vh);
+    height: calc(100vh + 44px);
+    width: 6px;
+    background: repeating-linear-gradient(-35deg, #c9a06b 0 6px, #a8794f 6px 12px);
+    border-radius: 3px;
+  }
+  .hang-sign .rope.r1 { left: 20%; }
+  .hang-sign .rope.r2 { right: 20%; }
+  .hang-sign .top-line {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    text-align: center;
+    color: #6b4a2e;
+    font-size: clamp(1.1em, 5.5vw, 1.5em);
+    letter-spacing: 3px;
+    margin-bottom: 8px;
+    text-shadow: 0 2px 0 #fdf4e3, 0 4px 8px rgba(107,74,46,0.3);
+  }
+  .hang-sign .plank {
+    background:
+      repeating-linear-gradient(90deg, rgba(107,74,46,0.09) 0 3px, transparent 3px 26px),
+      linear-gradient(#e3c894, #c49a66);
+    border: 4px solid #a8794f;
+    border-radius: 16px;
+    padding: 8px 36px 14px;
+    box-shadow: 0 14px 32px rgba(107,74,46,0.45), inset 0 3px 0 rgba(255,255,255,0.45);
+    text-align: center;
+  }
+  .hang-sign .big-name {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 800;
+    font-size: clamp(3em, 17vw, 4.8em);
+    line-height: 1.05;
+    color: #5a3a22;
+    letter-spacing: 2px;
+    text-shadow: 0 3px 0 rgba(253,244,227,0.65), 0 7px 12px rgba(90,58,34,0.35);
+  }
+  .hang-sign .sub-line {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    text-align: center;
+    color: #6b4a2e;
+    font-size: clamp(0.95em, 4.2vw, 1.15em);
+    letter-spacing: 2px;
+    margin-top: 10px;
+    text-shadow: 0 2px 0 #fdf4e3, 0 4px 8px rgba(107,74,46,0.25);
+  }
+  #startScreen h2 {
+    color: #6b4a2e;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 600;
+    text-align: center;
+    font-size: clamp(1.1em, 4.8vw, 1.5em);
+    text-shadow: 0 1px 0 rgba(255,255,255,0.6);
+  }
+  #playBtn {
+    font-family: 'Baloo 2', sans-serif;
+    background: linear-gradient(#b98b5e, #8b5e3c);
+    color: #fdf4e3;
+    border: 3px solid #f7f3ec;
+    padding: 16px 42px;
+    border-radius: 50px;
+    font-size: clamp(1.05em, 4.5vw, 1.25em);
+    font-weight: 700;
+    cursor: pointer;
+    box-shadow: 0 8px 25px rgba(107,74,46,0.45);
+    animation: pulseWood 2s infinite;
+  }
+  @keyframes pulseWood {
+    0%, 100% { box-shadow: 0 8px 20px rgba(107,74,46,0.4); transform: scale(1); }
+    50%      { box-shadow: 0 10px 35px rgba(107,74,46,0.65); transform: scale(1.04); }
+  }
+
+  /* ================= CENA / SLIDES ================= */
+  .stage {
+    position: fixed; inset: 0;
+    display: flex; align-items: center; justify-content: center;
+    overflow: hidden;
+  }
+  .farm-bg {
+    position: absolute; inset: 0;
+    pointer-events: none;
+    z-index: 1;
+  }
+  .falling-farm {
+    position: absolute;
+    font-size: 28px;
+    animation: fall linear infinite;
+    opacity: 0.8;
+  }
+  @keyframes fall {
+    0%   { transform: translateY(-10vh) rotate(0deg); }
+    100% { transform: translateY(110vh) rotate(360deg); }
+  }
+
+  .slide {
+    position: absolute;
+    width: 90%;
+    max-width: 600px;
+    text-align: center;
+    padding: 30px;
+    opacity: 0;
+    transform: scale(0.85) translateY(30px) rotate(-1.5deg);
+    transition: opacity 1.1s ease, transform 1.1s cubic-bezier(.2,.8,.3,1.1);
+    z-index: 2;
+    pointer-events: none;
+  }
+  .slide.active {
+    opacity: 1;
+    transform: scale(1) translateY(0) rotate(0deg);
+    pointer-events: auto;
+  }
+
+  .slide .farm-icon {
+    font-size: clamp(60px, 15vw, 90px);
+    display: inline-block;
+    animation: bounce 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 5px 15px rgba(74,109,150,0.4));
+  }
+  .slide h1 {
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    font-size: clamp(1.3em, 5.5vw, 2.1em);
+    color: #4a6d96;
+    line-height: 1.45;
+    margin-top: 20px;
+    text-shadow: 0 2px 0 rgba(255,255,255,0.7), 2px 3px 10px rgba(255,255,255,0.5);
+  }
+  .slide .name {
+    font-family: 'Dancing Script', 'Brush Script MT', cursive;
+    font-size: clamp(3.5em, 13vw, 5.5em);
+    color: #6b4a2e;
+    animation: glow 2.5s ease-in-out infinite;
+    margin: 10px 0;
+    line-height: 1;
+  }
+
+  /* ---------- Card do convite ---------- */
+  .slide .info-card {
+    background:
+      repeating-linear-gradient(0deg, rgba(127,168,209,.05) 0 12px, transparent 12px 24px),
+      repeating-linear-gradient(90deg, rgba(127,168,209,.05) 0 12px, transparent 12px 24px),
+      rgba(253,249,240,0.97);
+    border-radius: 25px;
+    padding: 28px 24px;
+    border: 3px dashed #8fb3d9;
+    box-shadow: 0 15px 40px rgba(74,109,150,0.3);
+    max-height: 92vh;
+    overflow-y: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+  .info-card .sign {
+    display: inline-block;
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    background: linear-gradient(#b98b5e, #8b5e3c);
+    color: #fdf4e3;
+    padding: 10px 22px;
+    border-radius: 14px;
+    transform: rotate(-2deg);
+    box-shadow: 0 5px 12px rgba(107,74,46,0.4);
+    margin-bottom: 12px;
+    font-size: clamp(1.05em, 4.5vw, 1.35em);
+    position: relative;
+  }
+  .info-card .sign::before, .info-card .sign::after {
+    content: '';
+    position: absolute;
+    top: -12px;
+    width: 3px; height: 14px;
+    background: #a8794f;
+    border-radius: 2px;
+  }
+  .info-card .sign::before { left: 22%; transform: rotate(18deg); }
+  .info-card .sign::after  { right: 22%; transform: rotate(-18deg); }
+  .slide .info-card p {
+    color: #6b4a2e;
+    font-size: clamp(1em, 4vw, 1.15em);
+    margin: 9px 0;
+    line-height: 1.5;
+  }
+  .slide .info-card strong { color: #4a6d96; }
+  .divider {
+    font-size: 1em;
+    letter-spacing: 8px;
+    opacity: .8;
+    margin: 6px 0;
+  }
+
+  .btn-confirm {
+    display: inline-block;
+    margin-top: 20px;
+    font-family: 'Baloo 2', sans-serif;
+    background: linear-gradient(135deg, #25d366, #128c7e);
+    color: white;
+    padding: 17px 38px;
+    border-radius: 50px;
+    font-size: 1.15em;
+    font-weight: 700;
+    text-decoration: none;
+    box-shadow: 0 8px 20px rgba(37,211,102,0.5);
+    transition: transform .3s;
+    animation: pulse 2s infinite;
+  }
+  .btn-confirm:hover { transform: scale(1.05); }
+
+  @keyframes bounce {
+    0%, 100% { transform: translateY(0) rotate(-4deg); }
+    50%      { transform: translateY(-14px) rotate(4deg); }
+  }
+  @keyframes glow {
+    0%, 100% { text-shadow: 0 0 15px #cfe0f0; }
+    50%      { text-shadow: 0 0 30px #8fb3d9, 0 0 50px #d9c7a3; }
+  }
+  @keyframes pulse {
+    0%, 100% { box-shadow: 0 8px 20px rgba(37,211,102,0.4); }
+    50%      { box-shadow: 0 8px 35px rgba(37,211,102,0.9); }
+  }
+
+  /* ---------- Controle de música ---------- */
+  #musicBtn {
+    position: fixed;
+    top: calc(20px + env(safe-area-inset-top));
+    right: calc(16px + env(safe-area-inset-right));
+    background: rgba(253,249,240,0.92);
+    border: 3px solid #b98b5e;
+    width: 50px; height: 50px;
+    border-radius: 50%;
+    font-size: 22px;
+    cursor: pointer;
+    z-index: 50;
+    display: none;
+    box-shadow: 0 4px 12px rgba(107,74,46,0.3);
+  }
+  #musicBtn.show { display: block; }
+
+  /* ---------- Foto real do Noah ---------- */
+  .photo-frame {
+    width: clamp(200px, 60vw, 280px);
+    height: clamp(200px, 60vw, 280px);
+    border-radius: 50%;
+    object-fit: cover;
+    border: 6px solid #fdf9f0;
+    box-shadow: 0 0 0 4px #7fa8d1, 0 15px 40px rgba(74,109,150,0.5);
+    animation: photoPulse 2.5s ease-in-out infinite, bounce 4s ease-in-out infinite;
+    margin: 20px auto;
+    display: block;
+  }
+  @keyframes photoPulse {
+    0%, 100% { box-shadow: 0 0 0 4px #7fa8d1, 0 15px 40px rgba(74,109,150,0.5); }
+    50%      { box-shadow: 0 0 0 10px rgba(143,179,217,0.4), 0 20px 50px rgba(74,109,150,0.7); }
+  }
+
+  /* ---------- Countdown (plaquinhas de madeira) ---------- */
+  .countdown {
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+    margin: 14px 0;
+    flex-wrap: wrap;
+  }
+  .countdown .unit {
+    font-family: 'Baloo 2', sans-serif;
+    background: linear-gradient(#b98b5e, #8b5e3c);
+    color: #fdf4e3;
+    padding: 9px 12px;
+    border-radius: 12px;
+    min-width: 60px;
+    box-shadow: 0 5px 12px rgba(107,74,46,0.4), inset 0 -3px 0 rgba(0,0,0,0.15);
+    border: 2px solid rgba(253,244,227,0.5);
+  }
+  .countdown .unit b {
+    display: block;
+    font-size: 1.55em;
+    line-height: 1.1;
+  }
+  .countdown .unit small { font-size: 0.7em; opacity: 0.9; }
+
+  /* ---------- Botões extras ---------- */
+  .extra-btns {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+    margin-top: 14px;
+    flex-wrap: wrap;
+  }
+  .btn-small {
+    font-family: 'Baloo 2', sans-serif;
+    background: #fdf9f0;
+    border: 2px solid #b98b5e;
+    color: #6b4a2e;
+    padding: 10px 16px;
+    border-radius: 50px;
+    font-size: 0.9em;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  .btn-small:hover { background: #f2e8d5; }
+
+  .greeting {
+    color: #4a6d96;
+    font-style: italic;
+    font-size: 1.1em;
+    margin-bottom: 8px;
+  }
+
+  /* ================= FAZENDINHA INTERATIVA ================= */
+  .farm-scene {
+    position: fixed; inset: 0;
+    pointer-events: none;
+    z-index: 3;
+    overflow: hidden;
+  }
+
+  /* Balões — toque para estourar! */
+  .balloons {
+    position: absolute;
+    top: calc(38px + env(safe-area-inset-top));
+    left: 6px;
+    width: 110px; height: 240px;
+    transform-origin: top center;
+    animation: sway 6s ease-in-out infinite;
+  }
+  .balloon {
+    position: absolute;
+    width: 48px; height: 58px;
+    border-radius: 50% 50% 50% 50% / 46% 46% 54% 54%;
+    background: radial-gradient(circle at 35% 28%, rgba(255,255,255,0.75), rgba(255,255,255,0) 42%), var(--c);
+    box-shadow: inset -4px -6px 10px rgba(0,0,0,0.12);
+    animation: floaty 4.5s ease-in-out infinite;
+    pointer-events: auto;
+    cursor: pointer;
+    transition: opacity .22s ease;
+  }
+  .balloon::after {
+    content: '';
+    position: absolute;
+    bottom: -24px; left: 50%;
+    width: 2px; height: 24px;
+    background: rgba(107,74,46,0.3);
+  }
+  .balloon.b1 { --c: #3d6ea5; top: 0;    left: 6px;  width: 56px; height: 68px; }
+  .balloon.b2 { --c: #d9c7a3; top: 26px; left: 54px; animation-delay: .8s; }
+  .balloon.b3 { --c: #8fb3d9; top: 78px; left: 14px; animation-delay: 1.6s; }
+  .balloon.b4 { --c: #e8dcc4; top: 106px; left: 58px; width: 40px; height: 50px; animation-delay: 2.4s; }
+  .balloon.b5 { --c: #5b8fc9; top: 150px; left: 30px; width: 44px; height: 54px; animation-delay: 3.2s; }
+  .balloon.popped {
+    animation: none;
+    transform: scale(1.7);
+    opacity: 0;
+    pointer-events: none;
+    transition: transform .22s ease, opacity .22s ease;
+  }
+  @keyframes sway {
+    0%, 100% { transform: rotate(-3deg); }
+    50%      { transform: rotate(3deg); }
+  }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50%      { transform: translateY(-7px); }
+  }
+
+  /* Moinho de madeira girando — toque para acelerar! */
+  .windmill {
+    position: absolute;
+    bottom: calc(92px + env(safe-area-inset-bottom));
+    left: 12px;
+    width: 84px; height: 118px;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .wm-tower {
+    position: absolute;
+    bottom: 0; left: 50%;
+    width: 34px; height: 62px;
+    margin-left: -17px;
+    background: linear-gradient(#c9a06b, #a8794f);
+    clip-path: polygon(22% 0, 78% 0, 100% 100%, 0 100%);
+    border-radius: 4px;
+  }
+  .wm-blades {
+    position: absolute;
+    top: 0; left: 50%;
+    width: 76px; height: 76px;
+    margin-left: -38px;
+    animation: spin 10s linear infinite;
+  }
+  .windmill.fast .wm-blades { animation-duration: 1.2s; }
+  .wm-blades::before {
+    content: '';
+    position: absolute;
+    inset: 2px;
+    border: 4px solid rgba(139,94,60,0.45);
+    border-radius: 50%;
+  }
+  .wm-blades span {
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 35px; height: 17px;
+    margin-top: -8.5px;
+    background: linear-gradient(#a8794f, #8b5e3c);
+    border-radius: 4px 16px 16px 4px;
+    transform-origin: 0 50%;
+    box-shadow: inset 0 -4px 0 rgba(0,0,0,0.15);
+  }
+  .wm-blades span:nth-child(1) { transform: rotate(0deg); }
+  .wm-blades span:nth-child(2) { transform: rotate(90deg); }
+  .wm-blades span:nth-child(3) { transform: rotate(180deg); }
+  .wm-blades span:nth-child(4) { transform: rotate(270deg); }
+  .wm-blades::after {
+    content: '';
+    position: absolute;
+    top: 50%; left: 50%;
+    width: 16px; height: 16px;
+    margin: -8px 0 0 -8px;
+    border-radius: 50%;
+    background: #6b4a2e;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* Ovelha e vaca — toque para ouvir! */
+  .peek {
+    position: absolute;
+    bottom: calc(20px + env(safe-area-inset-bottom));
+    font-size: clamp(42px, 11vw, 64px);
+    filter: drop-shadow(0 6px 10px rgba(74,109,150,0.35));
+    transform-origin: bottom center;
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  .peek.sheep { left: 6px;  animation: bobFlip 3.5s ease-in-out infinite; }
+  .peek.cow   { right: 6px; animation: bob 3.5s ease-in-out infinite 1.2s; }
+  @keyframes bob {
+    0%, 100% { transform: rotate(-4deg) translateY(0); }
+    50%      { transform: rotate(4deg) translateY(-6px); }
+  }
+  @keyframes bobFlip {
+    0%, 100% { transform: scaleX(-1) rotate(-4deg) translateY(0); }
+    50%      { transform: scaleX(-1) rotate(4deg) translateY(-6px); }
+  }
+
+  /* Pintinhos passeando — toque para o "piu"! */
+  .chick {
+    position: absolute;
+    bottom: calc(6px + env(safe-area-inset-bottom));
+    left: -12vw;
+    font-size: 30px;
+    animation: walk linear infinite, waddle .45s ease-in-out infinite alternate;
+    filter: drop-shadow(0 3px 5px rgba(74,109,150,0.3));
+    pointer-events: auto;
+    cursor: pointer;
+    padding: 6px;
+  }
+  .chick.c1 { animation-duration: 24s, .45s; }
+  .chick.c2 { animation-duration: 30s, .5s;  animation-delay: 8s, 0s;  font-size: 24px; }
+  .chick.c3 { animation-duration: 38s, .55s; animation-delay: 16s, 0s; font-size: 34px; }
+  .chick.c4 { animation-name: walkBack, waddleBack; animation-duration: 28s, .5s; animation-delay: 4s, 0s; font-size: 26px; }
+  @keyframes walk     { from { left: -12vw; }  to { left: 112vw; } }
+  @keyframes walkBack { from { left: 112vw; }  to { left: -12vw; } }
+  @keyframes waddle {
+    from { transform: scaleX(-1) rotate(-9deg) translateY(0); }
+    to   { transform: scaleX(-1) rotate(9deg) translateY(-5px); }
+  }
+  @keyframes waddleBack {
+    from { transform: rotate(-9deg) translateY(0); }
+    to   { transform: rotate(9deg) translateY(-5px); }
+  }
+
+  /* Trator azul passando (como o da referência e do bolo) */
+  .tractor {
+    position: absolute;
+    bottom: calc(8px + env(safe-area-inset-bottom));
+    left: -30vw;
+    width: 104px; height: 76px;
+    animation: driveBy 30s linear infinite;
+    animation-delay: 9s;
+    filter: drop-shadow(0 4px 8px rgba(74,109,150,0.35));
+    pointer-events: auto;
+    cursor: pointer;
+  }
+  @keyframes driveBy {
+    from { left: -30vw; }
+    to   { left: 130vw; }
+  }
+  .tr-cab {
+    position: absolute;
+    left: 6px; bottom: 26px;
+    width: 44px; height: 40px;
+    background: linear-gradient(#7fa8d1, #5b8fc9);
+    border-radius: 10px 10px 0 0;
+    border: 3px solid #4a6d96;
+  }
+  .tr-cab::before {
+    content: '';
+    position: absolute;
+    inset: 5px 7px 9px 7px;
+    background: linear-gradient(#eaf3fb, #cfe3f5);
+    border-radius: 5px;
+  }
+  .tr-body {
+    position: absolute;
+    left: 46px; bottom: 14px;
+    width: 52px; height: 28px;
+    background: linear-gradient(#5b8fc9, #3d6ea5);
+    border-radius: 4px 12px 6px 4px;
+  }
+  .tr-pipe {
+    position: absolute;
+    left: 60px; bottom: 40px;
+    width: 7px; height: 20px;
+    background: #4a6d96;
+    border-radius: 3px;
+  }
+  .tr-pipe::after {
+    content: '';
+    position: absolute;
+    top: -8px; left: -3px;
+    width: 11px; height: 11px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.8);
+    animation: puff 1.6s ease-out infinite;
+  }
+  @keyframes puff {
+    0%   { transform: translateY(0) scale(0.5); opacity: .9; }
+    100% { transform: translateY(-28px) scale(1.7); opacity: 0; }
+  }
+  .tr-wheel {
+    position: absolute;
+    border-radius: 50%;
+    background: radial-gradient(#8ea2b8 0 30%, #39404a 30%);
+    border: 4px solid #2f353d;
+    animation: spin 1.4s linear infinite;
+  }
+  .tr-wheel::before {
+    content: '';
+    position: absolute;
+    left: 50%; top: 12%; bottom: 12%;
+    width: 3px;
+    margin-left: -1.5px;
+    background: #8ea2b8;
+    border-radius: 2px;
+  }
+  .tr-wheel.big   { width: 38px; height: 38px; left: 6px;  bottom: 0; }
+  .tr-wheel.small { width: 24px; height: 24px; right: 8px; bottom: 0; animation-duration: 0.9s; }
+
+  /* Roda de carroça rolando */
+  .wheel {
+    position: absolute;
+    bottom: calc(4px + env(safe-area-inset-bottom));
+    left: -15vw;
+    width: 42px; height: 42px;
+    border-radius: 50%;
+    border: 5px solid #6b4a2e;
+    background:
+      radial-gradient(circle, #6b4a2e 0 6px, transparent 6px),
+      repeating-conic-gradient(#6b4a2e 0deg 9deg, transparent 9deg 60deg);
+    animation: roll 16s linear infinite;
+    animation-delay: 6s;
+    filter: drop-shadow(0 3px 5px rgba(74,109,150,0.3));
+  }
+  @keyframes roll {
+    from { left: -15vw; transform: rotate(0deg); }
+    to   { left: 115vw; transform: rotate(1440deg); }
+  }
+
+  /* ---------- Balão de fala dos bichinhos ---------- */
+  .speech {
+    position: fixed;
+    transform: translate(-50%, -130%);
+    font-family: 'Baloo 2', sans-serif;
+    font-weight: 700;
+    background: #fdf9f0;
+    color: #6b4a2e;
+    padding: 7px 14px;
+    border-radius: 16px;
+    border: 2px solid #c9a06b;
+    box-shadow: 0 5px 14px rgba(107,74,46,0.3);
+    z-index: 300;
+    pointer-events: none;
+    white-space: nowrap;
+    animation: speechPop 1.3s ease-out forwards;
+  }
+  .speech::after {
+    content: '';
+    position: absolute;
+    bottom: -8px; left: 50%;
+    margin-left: -6px;
+    border: 6px solid transparent;
+    border-top-color: #c9a06b;
+    border-bottom: none;
+  }
+  @keyframes speechPop {
+    0%   { opacity: 0; scale: 0.4; }
+    12%  { opacity: 1; scale: 1.1; }
+    22%  { scale: 1; }
+    75%  { opacity: 1; translate: 0 0; }
+    100% { opacity: 0; translate: 0 -14px; }
+  }
+
+  /* ---------- Confete ---------- */
+  .confetti {
+    position: fixed;
+    top: -20px;
+    width: 9px; height: 13px;
+    border-radius: 2px;
+    z-index: 200;
+    pointer-events: none;
+    animation: confettiFall linear forwards;
+  }
+  .confetti.round { border-radius: 50%; width: 8px; height: 8px; }
+  @keyframes confettiFall {
+    0%   { transform: translateY(0) rotate(0deg); }
+    100% { transform: translateY(112vh) rotate(720deg); }
+  }
+
+  /* Spark de toque */
+  .touch-spark {
+    position: fixed;
+    pointer-events: none;
+    font-size: 30px;
+    animation: sparkOut 1s ease-out forwards;
+    z-index: 999;
+  }
+  @keyframes sparkOut {
+    0%   { transform: translate(-50%, -50%) scale(0.5); opacity: 1; }
+    100% { transform: translate(-50%, -150%) scale(1.8); opacity: 0; }
+  }
+
+  @media (max-width: 480px) {
+    .slide { padding: 0px; }
+    .btn-confirm { padding: 14px 28px; font-size: 1em; margin-top: 16px; }
+    .btn-small { padding: 8px 14px; font-size: 0.8em; }
+    .extra-btns { gap: 8px; margin-top: 12px; }
+    .balloons { scale: 0.72; left: 0; }
+    .windmill { scale: 0.75; left: 2px; transform-origin: bottom left; }
+    .barn { scale: 0.82; transform-origin: bottom right; }
+    .tree.t1 { right: 118px; }
+    .tree.t2 { display: none; }
+    .bunting i { width: 26px; height: 34px; }
+    .bunting { gap: 5px; }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    .farm-scene *, .scenery *, .bunting, .falling-farm { animation: none !important; }
+    .chick, .wheel, .tractor { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- Cenário de fundo: sol, nuvens, colinas de feno e cerquinha -->
+<div class="scenery" aria-hidden="true">
+  <div class="sun"></div>
+  <div class="cloud k1"></div>
+  <div class="cloud k2"></div>
+  <div class="cloud k3"></div>
+  <div class="bird f1"></div>
+  <div class="bird f2"></div>
+  <div class="bird f3"></div>
+  <div class="hill h1"></div>
+  <div class="hill h2"></div>
+  <div class="tree t1"></div>
+  <div class="tree t2"></div>
+  <div class="fence"></div>
+  <div class="barn">
+    <div class="body"></div>
+    <div class="roof"></div>
+    <div class="loft"></div>
+    <div class="bdoors"></div>
+    <div class="rooster" data-sound="Cocoricó! 🐓">🐓</div>
+  </div>
+</div>
+
+<div class="grass" aria-hidden="true"></div>
+
+<!-- Bandeirinhas xadrez -->
+<div class="bunting" aria-hidden="true">
+  <i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i>
+</div>
+
+<!-- Fazendinha interativa (elementos da foto) -->
+<div class="farm-scene" aria-hidden="true">
+  <div class="balloons">
+    <div class="balloon b1"></div>
+    <div class="balloon b2"></div>
+    <div class="balloon b3"></div>
+    <div class="balloon b4"></div>
+    <div class="balloon b5"></div>
+  </div>
+  <div class="windmill" id="windmill">
+    <div class="wm-tower"></div>
+    <div class="wm-blades"><span></span><span></span><span></span><span></span></div>
+  </div>
+  <div class="peek sheep" data-sound="Bééé! 🐑">🐑</div>
+  <div class="peek cow" data-sound="Muuuu! 🐄">🐄</div>
+  <div class="chick c1" data-sound="Piu piu! 🎵">🐤</div>
+  <div class="chick c2" data-sound="Piu! 🎵">🐤</div>
+  <div class="chick c3" data-sound="Piu piu piu! 🎵">🐥</div>
+  <div class="chick c4" data-sound="Piu! 🎵">🐤</div>
+  <div class="wheel"></div>
+  <div class="tractor" data-sound="Vrum vrum! 🚜">
+    <div class="tr-body"></div>
+    <div class="tr-pipe"></div>
+    <div class="tr-cab"></div>
+    <div class="tr-wheel big"></div>
+    <div class="tr-wheel small"></div>
+  </div>
+</div>
+
+<!-- Tela inicial: portas do celeiro -->
+<div id="startScreen">
+  <div class="door left"></div>
+  <div class="door right"></div>
+  <div class="start-content">
+    <div class="hang-sign">
+      <i class="rope r1"></i><i class="rope r2"></i>
+      <div class="top-line">FAZENDINHA DO</div>
+      <div class="plank"><div class="big-name">NOAH</div></div>
+      <div class="sub-line">🐮 1 ANINHO 🚜</div>
+    </div>
+    <h2>Um convite especial está te esperando...</h2>
+    <button id="playBtn">🚜 Abrir a porteira</button>
+  </div>
+</div>
+
+<button id="musicBtn" title="Música">🔊</button>
+
+<!-- Cena tipo vídeo -->
+<div class="stage">
+  <div class="farm-bg" id="farmBg"></div>
+
+  <!-- Slide 1 -->
+  <div class="slide" data-slide="0">
+    <div class="farm-icon">🐮</div>
+    <h1>"Na fazendinha, o amor cresce<br>simples e verdadeiro."</h1>
+  </div>
+
+  <!-- Slide 2 -->
+  <div class="slide" data-slide="1">
+    <h1>Não é por acaso que o</h1>
+    <div class="farm-icon">🐑🐤🐄</div>
+    <div class="name">Noah</div>
+    <h1>é o nosso fazendeirinho 🌾</h1>
+  </div>
+
+  <!-- Slide 3 -->
+  <div class="slide" data-slide="2">
+    <div class="farm-icon">🐤</div>
+    <h1>Hoje desejamos que você<br>leve um pouquinho<br>da alegria que o Noah trouxe<br>para as nossas vidas 💙</h1>
+  </div>
+
+  <!-- Slide 4 - Foto real -->
+  <div class="slide" data-slide="3">
+    <h1>Esse é ele 💙</h1>
+    <img src="fotos/foto_real.jpeg" class="photo-frame" alt="Noah">
+    <div class="name" style="font-size: clamp(3em, 11vw, 4.5em);">Noah</div>
+  </div>
+
+  <!-- Slide 5 - Convite final -->
+  <div class="slide" data-slide="4">
+    <div class="info-card">
+      <p class="greeting" id="greeting"></p>
+      <div class="sign">✨ Você está convidado ✨</div>
+      <p>Para celebrar o 1º aninho do</p>
+      <div class="name" style="font-size:3.4em; margin:2px 0;">Noah</div>
+
+      <div class="countdown" id="countdown"></div>
+      <div class="divider">🌾🐮🌾</div>
+
+      <p><strong>📅 Data:</strong> 22 de Agosto · 16h00</p>
+      <p><strong>📍 Local:</strong> Arte Festa Buffet Infantil</p>
+      <p><strong>🏠 Endereço:</strong> Av. Alfred Charvet, 598<br>Vila Nova · Araucária – PR</p>
+      <p style="font-size:0.95em;"><strong>💛 Confirmação obrigatória</strong> até o dia <strong>10/08</strong> para garantir sua participação 🐮🚜</p>
+
+      <a href="https://wa.me/5541996357211?text=Ol%C3%A1%2C%20gostaria%20de%20confirmar%20minha%20presen%C3%A7a%20no%201%C2%BA%20aninho%20do%20Noah%20no%20dia%2022%2F08%20%F0%9F%90%AE"
+         target="_blank" class="btn-confirm" id="confirmBtn">
+        ✓ Confirmar Presença
+      </a>
+
+      <div class="extra-btns">
+        <a href="https://www.google.com/maps/search/?api=1&query=Av.+Alfred+Charvet+598+Vila+Nova+Araucária+PR" target="_blank" class="btn-small">📍 Ver no Mapa</a>
+        <a id="calBtn" href="#" class="btn-small">📅 Add Agenda</a>
+        <button id="shareBtn" class="btn-small">🔗 Compartilhar</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Música de fundo -->
+<audio id="bgMusic" loop preload="none">
+  <source src="musica.mp3" type="audio/mpeg">
+</audio>
+
+<script>
+  // Bichinhos da fazenda caindo
+  const bg = document.getElementById('farmBg');
+  const emojis = ['🐤', '🐑', '🐮', '💙', '🌾', '🎈'];
+  for (let i = 0; i < 26; i++) {
+    const c = document.createElement('div');
+    c.className = 'falling-farm';
+    c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
+    c.style.left = Math.random() * 100 + 'vw';
+    c.style.animationDuration = (6 + Math.random() * 8) + 's';
+    c.style.animationDelay = (Math.random() * 5) + 's';
+    c.style.fontSize = (18 + Math.random() * 24) + 'px';
+    bg.appendChild(c);
+  }
+
+  // Sequência de slides
+  const slides = document.querySelectorAll('.slide');
+  const durations = [5000, 5500, 6000, 5500, 99999];
+  let current = -1;
+
+  function nextSlide() {
+    if (current >= 0) slides[current].classList.remove('active');
+    current++;
+    if (current >= slides.length) return;
+    slides[current].classList.add('active');
+    if (current < slides.length - 1) {
+      setTimeout(nextSlide, durations[current]);
+    } else {
+      // Chegou no convite: chuva de confete
+      confettiBurst();
+    }
+  }
+
+  // Start — portas do celeiro
+  const startScreen = document.getElementById('startScreen');
+  const playBtn = document.getElementById('playBtn');
+  const music = document.getElementById('bgMusic');
+  const musicBtn = document.getElementById('musicBtn');
+
+  playBtn.addEventListener('click', async () => {
+    // 1. Música DENTRO do gesto (síncrono) para o iOS permitir
+    music.volume = 0.4;
+    music.play().catch(()=>{});
+    musicBtn.classList.add('show');
+
+    // 2. Pedir permissão de giroscópio (popup do iOS aparece)
+    try {
+      if (typeof DeviceOrientationEvent !== 'undefined' &&
+          typeof DeviceOrientationEvent.requestPermission === 'function') {
+        const r = await DeviceOrientationEvent.requestPermission();
+        if (r === 'granted') enableParallax();
+      } else {
+        enableParallax();
+      }
+    } catch(e) {}
+
+    // 3. Abre as portas do celeiro e inicia as transições
+    startScreen.classList.add('open');
+    setTimeout(() => {
+      startScreen.classList.add('hidden');
+      setTimeout(() => startScreen.remove(), 700);
+      nextSlide();
+      startCritterHints();
+    }, 1150);
+  });
+
+  // ---------- Parallax: giroscópio (celular) ----------
+  function applyParallax(tx, ty) {
+    bg.style.transform = `translate(${tx}px, ${ty}px)`;
+    document.querySelectorAll('.cloud').forEach(c => c.style.marginTop = (ty * 0.4) + 'px');
+    document.querySelectorAll('.photo-frame').forEach(d => d.style.translate = `${tx*0.4}px ${ty*0.4}px`);
+  }
+  function enableParallax() {
+    window.addEventListener('deviceorientation', (e) => {
+      const tx = Math.max(-25, Math.min(25, (e.gamma || 0) * 0.5));
+      const ty = Math.max(-25, Math.min(25, ((e.beta || 0) - 45) * 0.3));
+      applyParallax(tx, ty);
+    });
+  }
+  // ---------- Parallax: mouse (desktop) ----------
+  if (window.matchMedia('(pointer: fine)').matches) {
+    window.addEventListener('mousemove', (e) => {
+      const tx = (e.clientX / innerWidth - 0.5) * 18;
+      const ty = (e.clientY / innerHeight - 0.5) * 14;
+      applyParallax(tx, ty);
+    });
+  }
+
+  document.getElementById('confirmBtn').addEventListener('click', () => {
+    music.pause();
+    musicBtn.textContent = '🔇';
+  });
+
+  musicBtn.addEventListener('click', () => {
+    if (music.paused) { music.play(); musicBtn.textContent = '🔊'; }
+    else { music.pause(); musicBtn.textContent = '🔇'; }
+  });
+
+  // ---------- Saudação personalizada via ?nome= ----------
+  const params = new URLSearchParams(location.search);
+  const nome = params.get('nome');
+  if (nome) {
+    document.getElementById('greeting').textContent = `Olá, ${decodeURIComponent(nome)}! 💙`;
+  }
+
+  // ---------- Contagem regressiva ----------
+  const festaData = new Date('2026-08-22T16:00:00-03:00');
+  function updateCountdown() {
+    const diff = festaData - new Date();
+    const cd = document.getElementById('countdown');
+    if (diff <= 0) { cd.innerHTML = '<div class="unit"><b>🎉</b><small>É hoje!</small></div>'; return; }
+    const d = Math.floor(diff / 86400000);
+    const h = Math.floor((diff % 86400000) / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000) / 1000);
+    cd.innerHTML =
+      `<div class="unit"><b>${d}</b><small>dias</small></div>` +
+      `<div class="unit"><b>${h}</b><small>horas</small></div>` +
+      `<div class="unit"><b>${m}</b><small>min</small></div>` +
+      `<div class="unit"><b>${s}</b><small>seg</small></div>`;
+  }
+  updateCountdown();
+  setInterval(updateCountdown, 1000);
+
+  // ---------- Adicionar à agenda (.ics) ----------
+  const ics =
+`BEGIN:VCALENDAR
+VERSION:2.0
+BEGIN:VEVENT
+SUMMARY:1º Aninho do Noah 🐮
+DTSTART:20260822T190000Z
+DTEND:20260822T230000Z
+LOCATION:Av. Alfred Charvet 598, Vila Nova, Araucária - PR - Arte Festa Buffet Infantil
+DESCRIPTION:Venha celebrar na fazendinha do Noah! Confirmação obrigatória até 10/08.
+END:VEVENT
+END:VCALENDAR`;
+  document.getElementById('calBtn').href =
+    'data:text/calendar;charset=utf-8,' + encodeURIComponent(ics);
+  document.getElementById('calBtn').download = 'aniversario-noah.ics';
+
+  // ---------- Compartilhar ----------
+  document.getElementById('shareBtn').addEventListener('click', async () => {
+    const dados = {
+      title: '1º Aninho do Noah 🐮',
+      text: '🐮 Tem convite especial te esperando! Vem celebrar na fazendinha do Noah 💙',
+      url: location.href
+    };
+    try {
+      if (navigator.share) await navigator.share(dados);
+      else { navigator.clipboard.writeText(location.href); alert('Link copiado!'); }
+    } catch(e) {}
+  });
+
+  // ---------- Bichinhos falantes ----------
+  function speech(text, x, y) {
+    const b = document.createElement('div');
+    b.className = 'speech';
+    b.textContent = text;
+    b.style.left = Math.max(60, Math.min(innerWidth - 60, x)) + 'px';
+    b.style.top = y + 'px';
+    document.body.appendChild(b);
+    setTimeout(() => b.remove(), 1400);
+  }
+  document.querySelectorAll('[data-sound]').forEach(el => {
+    el.addEventListener('click', (e) => {
+      e.stopPropagation();
+      speech(el.dataset.sound, e.clientX, e.clientY);
+    });
+  });
+
+  // ---------- Bichinhos convidam o toque ("Me clique!") ----------
+  let hintsOn = false;
+  function startCritterHints() {
+    if (hintsOn) return;
+    hintsOn = true;
+    const pool = [
+      ...document.querySelectorAll('[data-sound]'),
+      ...document.querySelectorAll('.balloon')
+    ];
+    setInterval(() => {
+      const el = pool[Math.floor(Math.random() * pool.length)];
+      if (el.classList.contains('popped')) return;
+      const r = el.getBoundingClientRect();
+      const cx = r.left + r.width / 2;
+      const cy = r.top + r.height / 2;
+      // só se estiver visível na tela e não coberto pelo card
+      if (!r.width || cx < 30 || cx > innerWidth - 30 || cy < 0 || cy > innerHeight) return;
+      const top = document.elementFromPoint(cx, cy);
+      if (top !== el && !el.contains(top)) return;
+      const msg = el.classList.contains('balloon')
+        ? 'Me estoure! 🎈'
+        : ['Me clique! 👆', 'Toque em mim! ✨', 'Oi! Clica aqui 👆'][Math.floor(Math.random() * 3)];
+      speech(msg, cx, r.top + 4);
+    }, 6000);
+  }
+
+  // ---------- Balões que estouram ----------
+  document.querySelectorAll('.balloon').forEach(b => {
+    b.addEventListener('click', (e) => {
+      e.stopPropagation();
+      if (b.classList.contains('popped')) return;
+      spark('🎉', e.clientX, e.clientY);
+      b.classList.add('popped');
+      setTimeout(() => b.classList.remove('popped'), 4000);
+    });
+  });
+
+  // ---------- Moinho acelera no toque ----------
+  const windmill = document.getElementById('windmill');
+  windmill.addEventListener('click', (e) => {
+    e.stopPropagation();
+    windmill.classList.add('fast');
+    spark('💨', e.clientX, e.clientY);
+    setTimeout(() => windmill.classList.remove('fast'), 3000);
+  });
+
+  // ---------- Confete ----------
+  const confettiColors = ['#5b8fc9', '#8fb3d9', '#d9c7a3', '#e8dcc4', '#b98b5e', '#fdf9f0'];
+  function confettiBurst() {
+    for (let i = 0; i < 60; i++) {
+      const c = document.createElement('div');
+      c.className = 'confetti' + (Math.random() < 0.4 ? ' round' : '');
+      c.style.left = Math.random() * 100 + 'vw';
+      c.style.background = confettiColors[Math.floor(Math.random() * confettiColors.length)];
+      c.style.animationDuration = (2.2 + Math.random() * 2.2) + 's';
+      c.style.animationDelay = (Math.random() * 0.9) + 's';
+      document.body.appendChild(c);
+      setTimeout(() => c.remove(), 5500);
+    }
+  }
+
+  // ---------- Spark + toque para avançar ----------
+  function spark(emoji, x, y) {
+    const s = document.createElement('div');
+    s.className = 'touch-spark';
+    s.textContent = emoji;
+    s.style.left = x + 'px';
+    s.style.top = y + 'px';
+    document.body.appendChild(s);
+    setTimeout(() => s.remove(), 1000);
+  }
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('a, button, [data-sound], .balloon, .windmill')) return;
+    spark(['🐤','💙','✨','🌾'][Math.floor(Math.random()*4)], e.clientX, e.clientY);
+  });
+
+  // ---------- Atalho de pré-visualização: ?slide=5 pula direto ----------
+  const jump = parseInt(params.get('slide'), 10);
+  if (jump >= 1 && jump <= slides.length) {
+    startScreen.remove();
+    musicBtn.classList.add('show');
+    current = jump - 2;
+    nextSlide();
+    startCritterHints();
+  }
+</script>
+
+</body>
+</html>
