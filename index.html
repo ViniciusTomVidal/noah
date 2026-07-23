@@ -35,7 +35,12 @@
     -webkit-user-select: none;
     user-select: none;
     -webkit-touch-callout: none;
-    background-color: #aecbe8;
+    background-color: #8fb3d9;
+  }
+  /* Fundo no elemento raiz: o Safari usa o canvas da página para colorir
+     as barras de cima/baixo do iPhone */
+  html {
+    background: linear-gradient(180deg, #8fb3d9 0%, #b9d3ec 30%, #e3eef8 60%, #f7f0e2 100%) no-repeat;
   }
   body {
     font-family: 'Lora', Georgia, serif;
