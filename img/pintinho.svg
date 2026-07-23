@@ -1,0 +1,20 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- pés -->
+  <path d="M88 152 L88 166 M82 166 L94 166" stroke="#f5952b" stroke-width="6" stroke-linecap="round"/>
+  <path d="M112 152 L112 166 M106 166 L118 166" stroke="#f5952b" stroke-width="6" stroke-linecap="round"/>
+  <!-- topete -->
+  <path d="M92 44 Q94 30 88 26 M100 42 Q100 26 100 22 M108 44 Q106 30 112 26" fill="none" stroke="#f0b429" stroke-width="5" stroke-linecap="round"/>
+  <!-- asas -->
+  <ellipse cx="52" cy="110" rx="14" ry="22" fill="#f0c030" transform="rotate(14 52 110)"/>
+  <ellipse cx="148" cy="110" rx="14" ry="22" fill="#f0c030" transform="rotate(-14 148 110)"/>
+  <!-- corpo -->
+  <circle cx="100" cy="102" r="54" fill="#ffd94a"/>
+  <!-- olhos -->
+  <circle cx="84" cy="92" r="4.2" fill="#4a3a2a"/>
+  <circle cx="116" cy="92" r="4.2" fill="#4a3a2a"/>
+  <!-- bico -->
+  <path d="M92 104 L108 104 L100 116 Z" fill="#f5952b"/>
+  <!-- bochechas -->
+  <circle cx="72" cy="106" r="7" fill="#f5b8ad" opacity="0.7"/>
+  <circle cx="128" cy="106" r="7" fill="#f5b8ad" opacity="0.7"/>
+</svg>

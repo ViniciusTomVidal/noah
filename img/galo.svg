@@ -1,0 +1,26 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200">
+  <!-- pés -->
+  <path d="M88 158 L88 172 M82 172 L94 172" stroke="#f5952b" stroke-width="6" stroke-linecap="round"/>
+  <path d="M112 158 L112 172 M106 172 L118 172" stroke="#f5952b" stroke-width="6" stroke-linecap="round"/>
+  <!-- cauda -->
+  <ellipse cx="146" cy="86" rx="12" ry="26" fill="#7fa8d1" transform="rotate(30 146 86)"/>
+  <ellipse cx="158" cy="100" rx="10" ry="22" fill="#b98b5e" transform="rotate(42 158 100)"/>
+  <!-- crista -->
+  <circle cx="86" cy="48" r="9" fill="#e26d5a"/>
+  <circle cx="100" cy="42" r="11" fill="#e26d5a"/>
+  <circle cx="114" cy="48" r="9" fill="#e26d5a"/>
+  <!-- corpo -->
+  <circle cx="100" cy="108" r="50" fill="#fdf6e8"/>
+  <!-- asa -->
+  <ellipse cx="58" cy="116" rx="13" ry="21" fill="#e8dcc4" transform="rotate(14 58 116)"/>
+  <!-- olhos -->
+  <circle cx="86" cy="96" r="4" fill="#4a3a2a"/>
+  <circle cx="114" cy="96" r="4" fill="#4a3a2a"/>
+  <!-- bico -->
+  <path d="M93 106 L107 106 L100 117 Z" fill="#f5952b"/>
+  <!-- barbela -->
+  <ellipse cx="100" cy="124" rx="5.5" ry="8" fill="#e26d5a"/>
+  <!-- bochechas -->
+  <circle cx="74" cy="108" r="6.5" fill="#f5b8ad" opacity="0.7"/>
+  <circle cx="126" cy="108" r="6.5" fill="#f5b8ad" opacity="0.7"/>
+</svg>

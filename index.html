@@ -233,17 +233,17 @@
   }
   .rooster {
     position: absolute;
-    top: -22px; left: 50%;
-    transform: translateX(-50%) scaleX(-1);
-    font-size: 26px;
+    top: -34px; left: 50%;
+    width: 42px;
     pointer-events: auto;
     cursor: pointer;
     filter: drop-shadow(0 3px 4px rgba(0,0,0,0.2));
     animation: roosterBob 3s ease-in-out infinite;
   }
+  .rooster img { width: 100%; display: block; }
   @keyframes roosterBob {
-    0%, 100% { transform: translateX(-50%) scaleX(-1) rotate(0deg); }
-    50%      { transform: translateX(-50%) scaleX(-1) rotate(-6deg) translateY(-3px); }
+    0%, 100% { transform: translateX(-50%) rotate(0deg); }
+    50%      { transform: translateX(-50%) rotate(-6deg) translateY(-3px); }
   }
 
   /* Passarinhos voando */
@@ -489,6 +489,26 @@
     animation: bounce 2.5s ease-in-out infinite;
     filter: drop-shadow(0 5px 15px rgba(74,109,150,0.4));
   }
+  .farm-hero {
+    width: clamp(85px, 24vw, 130px);
+    display: inline-block;
+    animation: bounce 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 5px 15px rgba(74,109,150,0.4));
+  }
+  .farm-trio {
+    display: flex;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 12px;
+    margin: 8px 0;
+  }
+  .farm-trio img {
+    width: clamp(58px, 16vw, 88px);
+    animation: bounce 2.5s ease-in-out infinite;
+    filter: drop-shadow(0 5px 12px rgba(74,109,150,0.35));
+  }
+  .farm-trio img:nth-child(2) { animation-delay: .4s; width: clamp(46px, 13vw, 70px); }
+  .farm-trio img:nth-child(3) { animation-delay: .8s; }
   .slide h1 {
     font-family: 'Baloo 2', sans-serif;
     font-weight: 700;
@@ -795,46 +815,40 @@
   .peek {
     position: absolute;
     bottom: calc(20px + env(safe-area-inset-bottom));
-    font-size: clamp(42px, 11vw, 64px);
+    width: clamp(66px, 17vw, 100px);
     filter: drop-shadow(0 6px 10px rgba(74,109,150,0.35));
     transform-origin: bottom center;
     pointer-events: auto;
     cursor: pointer;
   }
-  .peek.sheep { left: 6px;  animation: bobFlip 3.5s ease-in-out infinite; }
+  .peek img { width: 100%; display: block; }
+  .peek.sheep { left: 6px;  animation: bob 3.5s ease-in-out infinite; }
   .peek.cow   { right: 6px; animation: bob 3.5s ease-in-out infinite 1.2s; }
   @keyframes bob {
     0%, 100% { transform: rotate(-4deg) translateY(0); }
     50%      { transform: rotate(4deg) translateY(-6px); }
   }
-  @keyframes bobFlip {
-    0%, 100% { transform: scaleX(-1) rotate(-4deg) translateY(0); }
-    50%      { transform: scaleX(-1) rotate(4deg) translateY(-6px); }
-  }
 
   /* Pintinhos passeando — toque para o "piu"! */
   .chick {
     position: absolute;
-    bottom: calc(6px + env(safe-area-inset-bottom));
+    bottom: calc(4px + env(safe-area-inset-bottom));
     left: -12vw;
-    font-size: 30px;
+    width: 38px;
     animation: walk linear infinite, waddle .45s ease-in-out infinite alternate;
     filter: drop-shadow(0 3px 5px rgba(74,109,150,0.3));
     pointer-events: auto;
     cursor: pointer;
-    padding: 6px;
+    padding: 4px;
   }
+  .chick img { width: 100%; display: block; }
   .chick.c1 { animation-duration: 24s, .45s; }
-  .chick.c2 { animation-duration: 30s, .5s;  animation-delay: 8s, 0s;  font-size: 24px; }
-  .chick.c3 { animation-duration: 38s, .55s; animation-delay: 16s, 0s; font-size: 34px; }
-  .chick.c4 { animation-name: walkBack, waddleBack; animation-duration: 28s, .5s; animation-delay: 4s, 0s; font-size: 26px; }
+  .chick.c2 { animation-duration: 30s, .5s;  animation-delay: 8s, 0s;  width: 30px; }
+  .chick.c3 { animation-duration: 38s, .55s; animation-delay: 16s, 0s; width: 44px; }
+  .chick.c4 { animation-name: walkBack, waddle; animation-duration: 28s, .5s; animation-delay: 4s, 0s; width: 32px; }
   @keyframes walk     { from { left: -12vw; }  to { left: 112vw; } }
   @keyframes walkBack { from { left: 112vw; }  to { left: -12vw; } }
   @keyframes waddle {
-    from { transform: scaleX(-1) rotate(-9deg) translateY(0); }
-    to   { transform: scaleX(-1) rotate(9deg) translateY(-5px); }
-  }
-  @keyframes waddleBack {
     from { transform: rotate(-9deg) translateY(0); }
     to   { transform: rotate(9deg) translateY(-5px); }
   }
@@ -935,6 +949,36 @@
     from { left: -15vw; transform: rotate(0deg); }
     to   { left: 115vw; transform: rotate(1440deg); }
   }
+
+  /* ---------- Vídeo do convite ---------- */
+  #inviteVideo {
+    position: fixed; inset: 0;
+    width: 100%; height: 100%;
+    object-fit: cover;
+    z-index: 60;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity .8s ease;
+    background: #000;
+  }
+  #inviteVideo.show { opacity: 1; pointer-events: auto; }
+  #skipBtn {
+    position: fixed;
+    bottom: calc(24px + env(safe-area-inset-bottom));
+    right: 16px;
+    z-index: 61;
+    font-family: 'Baloo 2', sans-serif;
+    background: rgba(253,249,240,0.85);
+    border: 2px solid #b98b5e;
+    color: #6b4a2e;
+    padding: 10px 18px;
+    border-radius: 50px;
+    font-size: 0.9em;
+    font-weight: 700;
+    cursor: pointer;
+    display: none;
+  }
+  #skipBtn.show { display: block; }
 
   /* ---------- Balão de fala dos bichinhos ---------- */
   .speech {
@@ -1040,7 +1084,7 @@
     <div class="roof"></div>
     <div class="loft"></div>
     <div class="bdoors"></div>
-    <div class="rooster" data-sound="Cocoricó! 🐓">🐓</div>
+    <div class="rooster" data-sound="Cocoricó! 🐓"><img src="img/galo.svg" alt="Galo"></div>
   </div>
 </div>
 
@@ -1064,12 +1108,12 @@
     <div class="wm-tower"></div>
     <div class="wm-blades"><span></span><span></span><span></span><span></span></div>
   </div>
-  <div class="peek sheep" data-sound="Bééé! 🐑">🐑</div>
-  <div class="peek cow" data-sound="Muuuu! 🐄">🐄</div>
-  <div class="chick c1" data-sound="Piu piu! 🎵">🐤</div>
-  <div class="chick c2" data-sound="Piu! 🎵">🐤</div>
-  <div class="chick c3" data-sound="Piu piu piu! 🎵">🐥</div>
-  <div class="chick c4" data-sound="Piu! 🎵">🐤</div>
+  <div class="peek sheep" data-sound="Bééé! 🐑"><img src="img/ovelha.svg" alt="Ovelha"></div>
+  <div class="peek cow" data-sound="Muuuu! 🐄"><img src="img/vaca.svg" alt="Vaca"></div>
+  <div class="chick c1" data-sound="Piu piu! 🎵"><img src="img/pintinho.svg" alt="Pintinho"></div>
+  <div class="chick c2" data-sound="Piu! 🎵"><img src="img/pintinho.svg" alt="Pintinho"></div>
+  <div class="chick c3" data-sound="Piu piu piu! 🎵"><img src="img/pintinho.svg" alt="Pintinho"></div>
+  <div class="chick c4" data-sound="Piu! 🎵"><img src="img/pintinho.svg" alt="Pintinho"></div>
   <div class="wheel"></div>
   <div class="tractor" data-sound="Vrum vrum! 🚜">
     <div class="tr-body"></div>
@@ -1098,27 +1142,35 @@
 
 <button id="musicBtn" title="Música">🔊</button>
 
+<!-- Vídeo do convite -->
+<video id="inviteVideo" src="video.mp4" playsinline webkit-playsinline preload="auto"></video>
+<button id="skipBtn">Pular vídeo ➜</button>
+
 <!-- Cena tipo vídeo -->
 <div class="stage">
   <div class="farm-bg" id="farmBg"></div>
 
   <!-- Slide 1 -->
   <div class="slide" data-slide="0">
-    <div class="farm-icon">🐮</div>
+    <img class="farm-hero" src="img/vaca.svg" alt="">
     <h1>"Na fazendinha, o amor cresce<br>simples e verdadeiro."</h1>
   </div>
 
   <!-- Slide 2 -->
   <div class="slide" data-slide="1">
     <h1>Não é por acaso que o</h1>
-    <div class="farm-icon">🐑🐤🐄</div>
+    <div class="farm-trio">
+      <img src="img/ovelha.svg" alt="">
+      <img src="img/pintinho.svg" alt="">
+      <img src="img/vaca.svg" alt="">
+    </div>
     <div class="name">Noah</div>
     <h1>é o nosso fazendeirinho 🌾</h1>
   </div>
 
   <!-- Slide 3 -->
   <div class="slide" data-slide="2">
-    <div class="farm-icon">🐤</div>
+    <img class="farm-hero" src="img/pintinho.svg" alt="">
     <h1>Hoje desejamos que você<br>leve um pouquinho<br>da alegria que o Noah trouxe<br>para as nossas vidas 💙</h1>
   </div>
 
@@ -1203,11 +1255,37 @@
   const music = document.getElementById('bgMusic');
   const musicBtn = document.getElementById('musicBtn');
 
-  playBtn.addEventListener('click', async () => {
-    // 1. Música DENTRO do gesto (síncrono) para o iOS permitir
+  const video = document.getElementById('inviteVideo');
+  const skipBtn = document.getElementById('skipBtn');
+  let videoDone = false;
+
+  function endVideo() {
+    if (videoDone) return;
+    videoDone = true;
+    video.pause();
+    video.classList.remove('show');
+    skipBtn.classList.remove('show');
+    setTimeout(() => video.remove(), 900);
+    // música de fundo entra depois do vídeo
     music.volume = 0.4;
     music.play().catch(()=>{});
     musicBtn.classList.add('show');
+    // abre a modal do convite (último slide) com confete
+    current = slides.length - 2;
+    nextSlide();
+    startCritterHints();
+  }
+
+  playBtn.addEventListener('click', async () => {
+    // 1. Vídeo DENTRO do gesto (síncrono) para o iOS liberar o som
+    let videoOk = true;
+    try { await video.play(); } catch(e) { videoOk = false; }
+    if (!videoOk) {
+      // fallback: sem vídeo, volta para música + slides
+      music.volume = 0.4;
+      music.play().catch(()=>{});
+      musicBtn.classList.add('show');
+    }
 
     // 2. Pedir permissão de giroscópio (popup do iOS aparece)
     try {
@@ -1220,15 +1298,24 @@
       }
     } catch(e) {}
 
-    // 3. Abre as portas do celeiro e inicia as transições
+    // 3. Abre as portas do celeiro e mostra o vídeo (ou os slides no fallback)
     startScreen.classList.add('open');
     setTimeout(() => {
       startScreen.classList.add('hidden');
       setTimeout(() => startScreen.remove(), 700);
-      nextSlide();
-      startCritterHints();
+      if (videoOk) {
+        video.classList.add('show');
+        skipBtn.classList.add('show');
+      } else {
+        nextSlide();
+        startCritterHints();
+      }
     }, 1150);
   });
+
+  video.addEventListener('ended', endVideo);
+  video.addEventListener('error', () => { if (!videoDone && video.classList.contains('show')) endVideo(); });
+  skipBtn.addEventListener('click', endVideo);
 
   // ---------- Parallax: giroscópio (celular) ----------
   function applyParallax(tx, ty) {
@@ -1414,6 +1501,8 @@ END:VCALENDAR`;
   const jump = parseInt(params.get('slide'), 10);
   if (jump >= 1 && jump <= slides.length) {
     startScreen.remove();
+    video.remove();
+    videoDone = true;
     musicBtn.classList.add('show');
     current = jump - 2;
     nextSlide();
