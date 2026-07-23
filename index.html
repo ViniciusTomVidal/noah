@@ -1162,14 +1162,14 @@
   // Bichinhos da fazenda caindo
   const bg = document.getElementById('farmBg');
   const emojis = ['🐤', '🐑', '🐮', '💙', '🌾', '🎈'];
-  for (let i = 0; i < 26; i++) {
+  for (let i = 0; i < 12; i++) {
     const c = document.createElement('div');
     c.className = 'falling-farm';
     c.textContent = emojis[Math.floor(Math.random() * emojis.length)];
     c.style.left = Math.random() * 100 + 'vw';
-    c.style.animationDuration = (6 + Math.random() * 8) + 's';
-    c.style.animationDelay = (Math.random() * 5) + 's';
-    c.style.fontSize = (18 + Math.random() * 24) + 'px';
+    c.style.animationDuration = (8 + Math.random() * 8) + 's';
+    c.style.animationDelay = (Math.random() * 6) + 's';
+    c.style.fontSize = (14 + Math.random() * 16) + 'px';
     bg.appendChild(c);
   }
 
