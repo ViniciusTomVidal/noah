@@ -964,6 +964,10 @@
     background: #000;
   }
   #inviteVideo.show { opacity: 1; pointer-events: auto; }
+  /* Em telas largas (desktop/tablet deitado) mantém a proporção do vídeo, sem cortar */
+  @media (min-aspect-ratio: 3/4) {
+    #inviteVideo { object-fit: contain; background: #10161f; }
+  }
   #skipBtn {
     position: fixed;
     bottom: calc(24px + env(safe-area-inset-bottom));
